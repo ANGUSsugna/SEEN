@@ -1,0 +1,252 @@
+#include <SPI.h>
+#include <Wire.h> //ANGUS
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+#include <Fonts/FreeMonoBold9pt7b.h>
+
+#define OLED_RESET     -1 // Reset pin # (or -1 if sharing Arduino reset pin)
+#define SCREEN_ADDRESS 0x3D ///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);//ANGUS
+
+#include "pocKonsoLOGO.h"
+
+///// Switches 
+
+const int upButton = 9;              //setting up buttons for pocKonso
+int upButtonState = HIGH;
+int lastupButtonState = LOW;
+
+const int downButton = 6;            
+int downButtonState = HIGH;
+int lastdownButtonState = LOW;
+
+const int leftButton = 7;
+int leftButtonState = HIGH;
+int lastleftButtonState = LOW;
+
+const int rightButton = 8;
+int rightButtonState = HIGH;
+int lastrightButtonState = LOW;
+
+unsigned long lastDebounceTime = 0; // didn't end up using this code
+unsigned long debounceDelay = 50;   // didn't end up using this code
+
+
+/////////////////////  TIMER STUFF ////////////////
+
+
+
+
+/////////////////ROOMS//////////////
+#include "room2doors.h"
+/*#include "sofaWall.h"
+#include "twoDoors.h"
+#include "library.h"
+#include "fourthWall.h"
+  #include "Book.h"
+*/
+//////////////////////////////////////////
+
+void setup() {
+  // put your setup code here, to run once:
+Serial.begin(115200);
+ 
+  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    Serial.println(F("SSD1306 allocation failed"));
+    for(;;);
+  }
+   display.setRotation(2);     // Rotate display 180 for pocKonso
+
+pinMode (upButton, INPUT_PULLUP);
+pinMode (downButton, INPUT_PULLUP);
+pinMode (leftButton, INPUT_PULLUP);
+pinMode (rightButton, INPUT_PULLUP);
+   
+  display.clearDisplay();
+  display.setRotation(2);
+  display.drawBitmap(0, 0, gImage_pocKonsoLOGO, 128, 64, 1); //This is the pocKonso splash screen
+  display.display();
+
+      delay(2000);
+      display.clearDisplay();     // clear the display 
+
+room2doors();
+}
+void loop() {
+  // put your main code here, to run repeatedly:
+int readingUp = digitalRead(upButton);
+int readingDown = digitalRead(downButton);
+int readingLeft = digitalRead(leftButton);
+int readingRight = digitalRead(rightButton);
+
+upButtonState = digitalRead(upButton);
+downButtonState = digitalRead(downButton);
+leftButtonState = digitalRead(leftButton);
+rightButtonState = digitalRead(rightButton);
+
+                      
+
+}     
+/*
+                      if((upButtonState == LOW)){   // if both buttons pushed
+                          twoDoors();                                            // then play the cantchoose.h 
+                           delay(2000);
+                     } else if(downButtonState == LOW){             // sinister button pushed         //or should it be HIGH?
+                          sofaWall();                               // then play the sinister explanation 
+                           delay(2000);
+                     } else if (leftButtonState == LOW){                    // dexter button pushed
+                          library();
+                          delay(2000);
+                     } else if (rightButtonState == LOW){
+                           fourthWall();
+                           delay(2000);     
+                     }*/
+
+/*
+
+
+
+///////////////////////////////////// IGNORE / DELETE /////////////////////////////////////////////////////////////////
+ if (readingUp != lastupButtonState) {
+    // reset the debouncing timer
+    lastDebounceTime = millis();
+  }
+
+  if ((millis() - lastDebounceTime) > debounceDelay) {
+    // whatever the reading is at, it's been there for longer than the debounce
+    // delay, so take it as the actual current state:
+
+    // if the button state has changed:
+    if (readingUp != upButtonState) {
+      upButtonState = readingUp;
+
+      // only toggle the LED if the new button state is HIGH
+      if (upButtonState == LOW) {
+        twoDoors();
+      }
+    }
+
+if (readingDown != lastdownButtonState) {
+    // reset the debouncing timer
+    lastDebounceTime = millis();
+  }
+
+  if ((millis() - lastDebounceTime) > debounceDelay) {
+    // whatever the reading is at, it's been there for longer than the debounce
+    // delay, so take it as the actual current state:
+
+    // if the button state has changed:
+    if (readingDown != downButtonState) {
+      downButtonState = readingDown;
+
+      // only toggle the LED if the new button state is HIGH
+      if (downButtonState == LOW) {
+        sofaWall();
+      }
+    }
+
+if (readingLeft != lastleftButtonState) {
+    // reset the debouncing timer
+    lastDebounceTime = millis();
+  }
+
+  if ((millis() - lastDebounceTime) > debounceDelay) {
+    // whatever the reading is at, it's been there for longer than the debounce
+    // delay, so take it as the actual current state:
+
+    // if the button state has changed:
+    if (readingLeft != leftButtonState) {
+      leftButtonState = readingLeft;
+
+      // only toggle the LED if the new button state is HIGH
+      if (leftButtonState == LOW) {
+        library();
+      }
+    }
+
+if (readingRight != lastrightButtonState) {
+    // reset the debouncing timer
+    lastDebounceTime = millis();
+  }
+
+  if ((millis() - lastDebounceTime) > debounceDelay) {
+    // whatever the reading is at, it's been there for longer than the debounce
+    // delay, so take it as the actual current state:
+
+    // if the button state has changed:
+    if (readingRight != rightButtonState) {
+      rightButtonState = readingRight;
+
+      // only toggle the LED if the new button state is HIGH
+      if (rightButtonState == LOW) {
+        fourthWall();
+      }
+    }
+  }
+  }
+  }
+  }
+/*
+}
+/*
+ if (digitalRead(upButtonState) == 1);
+          twoDoors(); 
+if (digitalRead(downButtonState) == 1);
+          sofaWall();   
+         
+if(digitalRead(rightButtonState) == 1);
+           sofaWall();        
+           
+if(digitalRead(leftButtonState) == 1);
+           library();   
+          
+ */
+
+
+
+
+
+
+
+/* 
+switch(control)
+    {
+      case 1: 
+           if (digitalRead(upButton) == LOW)
+           {
+            twoDoors();                   
+           }
+            break;
+      case 2:    
+           if (digitalRead(leftButton) == LOW)
+           {
+            sofaWall();
+             } 
+           break;
+           
+      case 3: 
+           if (melody[thisNote] == NOTE_A3);
+           { 
+            display.drawBitmap(20,uaYpos,UpArrow, 8, 8, WHITE);
+           
+//  uaYpos-=1;
+//  if(uaYpos<1)
+//  uaYpos=127;
+            
+           }
+           break;
+       case 4:
+            if(melody[thisNote] == NOTE_B3);
+            {
+            display.drawBitmap(30,raYpos,RightArrow, 8, 8, WHITE);
+           
+// raYpos-=1;
+// if(raYpos<1)
+// raYpos=127;
+            
+            }
+            break;*/
