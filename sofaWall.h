@@ -1,11 +1,4 @@
-
-
-#include "twoDoors.h"
-#include "library.h"
-#include "fourthWall.h"
-  #include "Book.h"
-
-void sofaWall(){
+const int SofaWall(){
 
 
 display.clearDisplay(); 
