@@ -1,11 +1,5 @@
 
-#include "sofaWall.h"
-
-#include "library.h"
-#include "fourthWall.h"
-  #include "Book.h"
-
-void twoDoors(){
+const int TwoDoors(){
 
 const unsigned char gImage_DOWNarrowwhite[108] = { /* 0X00,0X01,0X18,0X00,0X24,0X00, */
 0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X07,
