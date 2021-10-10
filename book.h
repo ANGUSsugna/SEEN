@@ -1,11 +1,17 @@
 
-#include "sofaWall.h"
-#include "twoDoors.h"
-#include "library.h"
-#include "fourthWall.h"
+const int book(){
 
-void Book(){
+unsigned long startTime;     //defining startTime for millis()
+unsigned long nowTime;
 
+//int x1 = 80; // next four lines were to go with display.getTextBounds(....)
+//int y1 = 8;
+
+//unsigned int w = 80;
+//unsigned int h = 50;
+
+String string1= "What an odd book"; 
+startTime = millis();
 
 const unsigned char gImage_eye5[100] = { /* 0X00,0X01,0X28,0X00,0X14,0X00, */
 0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0X80,0XFF,0XFF,0XFF,0XFC,0X7F,0X3F,0XFF,0XFF,
@@ -16,19 +22,25 @@ const unsigned char gImage_eye5[100] = { /* 0X00,0X01,0X28,0X00,0X14,0X00, */
 0XFF,0XCF,0X00,0XF9,0XFF,0XFF,0XF0,0XC3,0X87,0XFF,0XFF,0XFF,0X00,0X7F,0XFF,0XFF,
 0XFF,0XFF,0XFF,0XFF,};
 
-
 display.clearDisplay(); 
-display.drawRect(4, 4, 120, 43, 1);        //Wall
 
 
-display.drawLine(0,0, 4,4, 1);        //left ceiling line
-display.drawLine(0,63, 4,47, 1);        // left floor line
+display.drawRoundRect(10,8, 60, 55, 3, 1);          //Book left side
+display.drawLine(16,8, 16,62, 1);                   //spine
+display.drawBitmap(23,15, gImage_eye5, 40, 20, 1); //draw eye1
 
-display.drawLine(124,4, 127,0, 1);      //right ceiling line
-display.drawLine(124,47, 127,63, 1);     //right floor line
+//display.getTextBounds(string1, 75,3, &x1,&y1, &w, &h); // not working there's a post on arduino forum about an issue with the NULLs, but I don't understand it yet.
+display.setTextColor(WHITE);
+display.setFont(&FreeSerif9pt7b);
+display.setCursor(75,20);
+display.print("What");
+display.setCursor(75,33);
+display.print("an");
+display.setCursor(75,46);
+display.print("odd");
+display.setCursor(75,59);
+display.print("book.");
 
-display.drawRoundRect(10,8, 30, 40, 3, 1);          //Book
-display.drawBitmap(20,15, gImage_eye5, 40, 20, 1); //draw eye1
 display.display();
- 
+
 }
