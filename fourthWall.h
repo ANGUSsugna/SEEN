@@ -1,12 +1,5 @@
 
-#include "sofaWall.h"
-#include "twoDoors.h"
-#include "library.h"
-
-  #include "Book.h"
-
-
-void fourthWall(){
+const int fourthwall(){
 
 unsigned long startTime;     //defining startTime for millis()
 unsigned long nowTime;
