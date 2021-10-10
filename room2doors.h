@@ -1,11 +1,4 @@
-
-#include "sofaWall.h"
-#include "twoDoors.h"
-#include "library.h"
-#include "fourthWall.h"
-  #include "Book.h"
-  
-void room2doors(){
+const int Room2doors(){
 
  display.clearDisplay();
 display.drawRect(54, 30, 30, 20, 1);        //end hallway
@@ -29,7 +22,7 @@ display.drawPixel(69, 43, 0);
 
 display.display();
 
-if (upButtonState == LOW){             
+/*if (upButtonState == LOW){             
                           twoDoors();                                        
                            
                      } else if (downButtonState == LOW){            
@@ -40,5 +33,5 @@ if (upButtonState == LOW){
                          
                      } else if (rightButtonState == LOW){
                            fourthWall();
-                     }   
+                     }   */
  }
